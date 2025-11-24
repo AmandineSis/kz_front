@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* Option : polices custom (en-dessous uniquement) */
+@font-face {
+  font-family: "content-font";
+  src: url("/fonts/Exo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "title-font";
+  src: url("/fonts/Exo-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "highlight-font";
+  src: url("/fonts/Orbitron-Medium.ttf") format("truetype");
+}
+
