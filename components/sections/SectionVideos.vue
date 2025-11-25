@@ -1,13 +1,15 @@
 <template>
   <section class="py-20 bg-black text-white" id="projects">
-    <div class="container mx-auto px-4">
+  <div class="mx-auto px-4 max-w-6xl">
+    <!-- Wrapper titre + filtres -->
+    <div class="flex flex-col items-center text-center">
       <!-- Titre -->
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-10">
-        MY BEST <span class="text-purple-400">EDITS</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-10 !text-center">
+        MES PROJETS <span class="text-purple-400">VIDEOS</span>
       </h2>
 
       <!-- Filtres -->
-      <div class="flex flex-wrap gap-4 mb-10">
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
         <button
           class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
           :class="selectedCategory === 'all'
@@ -30,59 +32,76 @@
           {{ cat.name }}
         </button>
       </div>
+</div>
+      <!-- CARROUSEL VIDEOS -->
+      <div class="relative max-w-6xl mx-auto">
 
-      <!-- Grille vidéos -->
-      <div class="grid gap-10 md:grid-cols-3">
+  <!-- Container scroll -->
+  <div
+    ref="carouselRef"
+    class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth no-scrollbar"
+  >
+    <div
+      v-for="video in filteredVideos"
+      :key="video.id"
+      class="group cursor-pointer snap-center min-w-[260px] md:min-w-[300px] lg:min-w-[340px] flex-shrink-0"
+      @click="openVideo(video)"
+    >
+      <div class="relative rounded-xl overflow-hidden">
+        <img
+          v-if="getVideoThumbnail(video)"
+          :src="getVideoThumbnail(video)"
+          class="w-full h-56 object-cover"
+        />
+        <div v-else class="w-full h-56 bg-gray-900 flex items-center justify-center">
+          <span class="text-gray-600">No thumbnail</span>
+        </div>
+
         <div
-          v-for="video in filteredVideos"
-          :key="video.id"
-          class="group cursor-pointer"
-          @click="openVideo(video)"
+          class="absolute inset-0 bg-black/40 flex items-center justify-center
+                 opacity-0 group-hover:opacity-100 transition"
         >
-          <div class="relative rounded-xl overflow-hidden">
-            <!-- Thumbnail -->
-            <img
-              v-if="getVideoThumbnail(video)"
-              class="w-full h-56 object-cover"
-              :src="getVideoThumbnail(video)"
-              alt=""
-            />
-
-            <!-- Si pas de thumbnail du tout -->
-            <div
-              v-else
-              class="w-full h-56 bg-gray-900 flex items-center justify-center"
-            >
-              <span class="text-gray-600">No thumbnail</span>
-            </div>
-
-            <!-- Icône play -->
-            <div
-              class="absolute inset-0 flex items-center justify-center
-                     bg-black/40 opacity-0 group-hover:opacity-100
-                     transition"
-            >
-              <div
-                class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-2xl"
-              >
-                ▶
-              </div>
-            </div>
+          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-2xl">
+            ▶
           </div>
-
-          <!-- Catégorie -->
-          <p class="mt-2 text-xs uppercase tracking-wide text-purple-300">
-            {{ getFirstCategoryName(video) }}
-          </p>
-
-          <!-- Titre -->
-          <h3 class="mt-1 text-lg font-bold uppercase tracking-wide">
-            {{ video.title }}
-          </h3>
         </div>
       </div>
-    </div>
 
+      <p class="mt-2 text-xs uppercase tracking-wide text-purple-300">
+        {{ getFirstCategoryName(video) }}
+      </p>
+
+      <h3 class="mt-1 text-lg font-bold uppercase tracking-wide">
+        {{ video.title }}
+      </h3>
+    </div>
+    
+  </div>
+ 
+
+      </div>
+     
+      
+    </div>
+<!-- Flèches -->
+<div class="flex justify-center gap-6 mt-4">
+    <button
+      class="bg-white/10 hover:bg-white/20 backdrop-blur-md
+             text-white p-3 rounded-full border border-white/10"
+      @click="scrollCarousel('left')"
+    >
+      <ArrowLeftIcon class="w-6 h-6" />
+    </button>
+
+    <button
+      class="bg-white/10 hover:bg-white/20 backdrop-blur-md
+             text-white p-3 rounded-full border border-white/10"
+      @click="scrollCarousel('right')"
+    >
+    <ArrowRightIcon class="w-6 h-6" />
+      
+    </button>
+      </div>
     <!-- POPUP VIDÉO -->
     <div
       v-if="activeVideo"
@@ -136,6 +155,7 @@
 </template>
 
 <script setup>
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/vue/24/solid'
 const runtimeConfig = useRuntimeConfig()
 
 // base API (ex: http://localhost:1337/api)
@@ -253,5 +273,19 @@ const openVideo = (video) => {
 
 const closeVideo = () => {
   activeVideo.value = null
+}
+const carouselRef = ref(null)
+
+const scrollCarousel = (direction) => {
+  const el = carouselRef.value
+  if (!el) return
+
+  // largeur d’une carte (adaptée à tes min-w)
+  const cardWidth = 320
+
+  el.scrollBy({
+    left: direction === 'left' ? -cardWidth : cardWidth,
+    behavior: "smooth"
+  })
 }
 </script>

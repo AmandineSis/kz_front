@@ -1,13 +1,12 @@
 <template>
   <section class="py-20 bg-black text-white" id="photos">
-    <div class="container mx-auto px-4">
+    <div class="container  mx-auto px-4">
       <!-- Titre -->
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-10">
-        MY BEST <span class="text-purple-400">SHOTS</span>
+      <h2 class="text-4xl md:text-5xl text-center font-extrabold mb-10">
+        MA GALERIE <span class="text-purple-400">PHOTO</span>
       </h2>
-
       <!-- Filtres -->
-      <div class="flex flex-wrap gap-4 mb-10">
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
         <button
           class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
           :class="selectedCategory === 'all'
@@ -121,29 +120,48 @@ const categories = computed(() => {
 
 const photos = computed(() => {
   const raw = photosRes.value?.data ?? []
+
   return raw.map((item) => {
+    // tu as déjà un objet "plat"
     const attrs = item.attributes || item
 
-    // champ media "photo" (Multiple Media) → on prend la première
-    const media = attrs.photo?.data
-    const firstMedia = Array.isArray(media) ? media[0] : media
-    const mainImageUrl = firstMedia ? getFileUrl(firstMedia.attributes) : ''
+    // ---- IMAGE PRINCIPALE ----
+    // Ici `photo` est un objet direct (single media)
+    const media = attrs.photo
+    // on choisit une version (medium > large > original)
+    const url =
+      media?.formats?.medium?.url ||
+      media?.formats?.small?.url ||
+      media?.url ||
+      ''
 
-    const catRaw =
-      attrs.photo_categories?.data ?? attrs.photo_categories ?? null
-    const cat = Array.isArray(catRaw) ? catRaw[0] : catRaw
-    const categoryName = cat?.attributes?.name || ''
-    const categorySlug = cat?.attributes?.slug || ''
+    const mainImageUrl = url
+      ? url.startsWith('http')
+        ? url
+        : STRAPI_URL + url
+      : ''
+
+    // ---- CATEGORIE ----
+    // Ici `photo_categories` est déjà un tableau d’objets
+    const catArray = attrs.photo_categories || []
+    const cat = Array.isArray(catArray) ? catArray[0] : catArray
+    const categoryName = cat?.name || ''
+    const categorySlug = cat?.slug || ''
 
     return {
-      id: item.id,
-      ...attrs,
+      id: attrs.id ?? item.id,
+      title: attrs.title,
       mainImageUrl,
       categoryName,
       categorySlug,
+      // si tu veux encore utiliser les données brutes :
+      photo: media,
+      photo_categories: catArray,
     }
   })
 })
+
+
 
 const selectedCategory = ref('all')
 
