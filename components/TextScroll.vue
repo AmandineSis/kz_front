@@ -39,11 +39,11 @@ const duplicatedItems = computed(() => [...props.items, ...props.items])
 }
 
 .text-scroll-item {
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
   font-family: 'highlight-font', sans-serif;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 @keyframes text-scroll {

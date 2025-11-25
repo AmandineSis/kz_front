@@ -8,13 +8,21 @@
       <p>Erreur de chargement de la page.</p>
       <pre class="mt-2 text-xs whitespace-pre-wrap">{{ error }}</pre>
     </div>
-
+    <!--Section Hero-->
     <div v-else-if="homepage && homepage.data">
       <SectionHero :data="homepage.data.sections[0]" />
 
     <div class="w-full bg-black text-white py-4">
       <TextScroll :items="scrollItems" />
     </div>
+    <!--Section Videos-->
+    <SectionVideos />
+    <!--Section Images-->
+    <SectionPhotos />
+    <!--Section About-->
+   <!-- <SectionAbout />-->
+    <!--Section Contact-->
+    <!--Section Footer-->
   </div>
 
   <div v-else class="p-8">
@@ -25,6 +33,9 @@
 
 <script setup>
 import SectionHero from '~/components/sections/SectionHero.vue'
+import SectionVideos from '~/components/sections/SectionVideos.vue'
+import SectionPhotos from '~/components/sections/SectionPhotos.vue'
+//import SectionAbout from '~/components/sections/SectionAbout.vue'
 
 const { data: homepage, pending, error } = await useFetch(
   'http://localhost:1337/api/homepage-sgl',
@@ -36,10 +47,15 @@ const { data: homepage, pending, error } = await useFetch(
 )
 const scrollItems = [
   'VIDÉOS',
+  '▫️',
   'REPORTAGES',
+  '▫️',
   'MONTAGES',
+  '▫️',
   'DRONE SHOOTING',
+  '▫️',
   'PHOTOGRAPHIE',
+  '▫️'
 ]
 
 </script>
