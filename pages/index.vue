@@ -10,18 +10,21 @@
     </div>
     <!--Section Hero-->
     <div v-else-if="homepage && homepage.data">
-      <SectionHero :data="homepage.data.sections[0]" />
-
-    <div class="w-full bg-black text-white py-4">
+      <!--<SectionHero :data="homepage.data.sections[0]" />-->
+     
+    <SectionHero/>
+     <section class="w-full bg-[#100A2F] text-white py-4">
       <TextScroll :items="scrollItems" />
-    </div>
+    </section>
     <!--Section Videos-->
     <SectionVideos />
+   
     <!--Section Images-->
     <SectionPhotos />
     <!--Section About-->
-   <!-- <SectionAbout />-->
+    <SectionAbout />
     <!--Section Contact-->
+    <SectionContact/>
     <!--Section Footer-->
   </div>
 
@@ -35,7 +38,8 @@
 import SectionHero from '~/components/sections/SectionHero.vue'
 import SectionVideos from '~/components/sections/SectionVideos.vue'
 import SectionPhotos from '~/components/sections/SectionPhotos.vue'
-//import SectionAbout from '~/components/sections/SectionAbout.vue'
+import SectionAbout from '~/components/sections/SectionAbout.vue'
+import SectionContact from '~/components/sections/SectionContact.vue' 
 
 const { data: homepage, pending, error } = await useFetch(
   'http://localhost:1337/api/homepage-sgl',

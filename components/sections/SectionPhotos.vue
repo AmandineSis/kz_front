@@ -1,17 +1,17 @@
 <template>
-  <section class="py-20 bg-black text-white" id="photos">
+  <section class="py-30 text-white" style="background-color: #0b0b1f; font-family: highlight-font;" id="photos">
     <div class="container  mx-auto px-4">
       <!-- Titre -->
       <h2 class="text-4xl md:text-5xl text-center font-extrabold mb-10">
-        MA GALERIE <span class="text-purple-400">PHOTO</span>
+        GALERIE <span class="text-[#55AB88]">PHOTOS</span>
       </h2>
       <!-- Filtres -->
-      <div class="flex flex-wrap justify-center gap-4 mb-10">
+      <div class="flex flex-wrap justify-center gap-4 mb-10" style="font-family: highlight-font;">
         <button
           class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
           :class="selectedCategory === 'all'
-            ? 'bg-purple-600 text-white border-purple-600'
-            : 'border-purple-600 text-purple-300 hover:bg-purple-600/20'"
+            ? 'bg-[#D28800] text-[#100A2F] border-[#D28800]'
+            : 'border-[#D28800] text-[#D28800] hover:bg-[#D28800]/20'"
           @click="selectedCategory = 'all'"
         >
           Tous
@@ -22,8 +22,8 @@
           :key="cat.id"
           class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
           :class="selectedCategory === cat.slug
-            ? 'bg-purple-600 text-white border-purple-600'
-            : 'border-purple-600 text-purple-300 hover:bg-purple-600/20'"
+            ? 'bg-[#D28800] text-white border-[#D28800]'
+            : 'border-[#D28800] text-[#D28800]  hover:bg-[#D28800]/20'"
           @click="selectedCategory = cat.slug"
         >
           {{ cat.name }}
@@ -58,7 +58,7 @@
           </div>
 
           <!-- Catégorie -->
-          <p class="mt-2 text-xs uppercase tracking-wide text-purple-300">
+          <p class="mt-2 text-xs uppercase tracking-wide text-[#FFC800]">
             {{ photo.categoryName }}
           </p>
 

@@ -1,20 +1,27 @@
 <template>
-  <section class="py-20 bg-black text-white" id="projects">
-  <div class="mx-auto px-4 max-w-6xl">
+  <section  class="relative pt-40 pb-30 bg-black text-white" style="background-color: #100A2F;" id="videos">
+  <!-- Pattern / texture / halo -->
+  <div
+   class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%]
+         w-[140%] h-[200%] max-w-none max-h-[1400px]
+         bg-center bg-cover opacity-20 pointer-events-none"
+    style="background-image: url('/images/projectback-green.png');"
+  ></div>
+  <div class="relative z-10 mx-auto px-4 max-w-6xl">
     <!-- Wrapper titre + filtres -->
     <div class="flex flex-col items-center text-center">
       <!-- Titre -->
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-10 !text-center">
-        MES PROJETS <span class="text-purple-400">VIDEOS</span>
+      <h2 class=" text-4xl md:text-5xl mb-10 text-center text-semibold" >
+        PROJETS <span class="text-[#55AB88]">VIDEOS</span>
       </h2>
 
       <!-- Filtres -->
-      <div class="flex flex-wrap justify-center gap-4 mb-10">
+      <div class="flex flex-wrap justify-center gap-4 mb-10" style="font-family: highlight-font;">
         <button
-          class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
+          class="px-5 py-2 border rounded-lg text-sm transition-all"
           :class="selectedCategory === 'all'
-            ? 'bg-purple-600 text-white border-purple-600'
-            : 'border-purple-600 text-purple-300 hover:bg-purple-600/20'"
+            ? 'bg-[#D28800] text-[#100A2F] border-[#D28800]'
+            : 'border-[#D28800] text-[#D28800] hover:bg-[#D28800]/20'"
           @click="selectedCategory = 'all'"
         >
           Tous
@@ -23,11 +30,12 @@
         <button
           v-for="cat in categories"
           :key="cat.id"
-          class="px-5 py-2 border rounded-lg text-sm font-semibold transition-all"
+          class="px-5 py-2 border rounded-lg text-sm  transition-all"
           :class="selectedCategory === cat.slug
-            ? 'bg-purple-600 text-white border-purple-600'
-            : 'border-purple-600 text-purple-300 hover:bg-purple-600/20'"
+            ? 'bg-[#D28800] text-[#100A2F] border-[#D28800]'
+            : 'border-[#D28800] text-[#D28800] hover:bg-[#D28800]/20'"
           @click="selectedCategory = cat.slug"
+           
         >
           {{ cat.name }}
         </button>
@@ -51,7 +59,7 @@
         <img
           v-if="getVideoThumbnail(video)"
           :src="getVideoThumbnail(video)"
-          class="w-full h-56 object-cover"
+          class="w-full h-47 object-cover object-center"
         />
         <div v-else class="w-full h-56 bg-gray-900 flex items-center justify-center">
           <span class="text-gray-600">No thumbnail</span>
@@ -67,7 +75,7 @@
         </div>
       </div>
 
-      <p class="mt-2 text-xs uppercase tracking-wide text-purple-300">
+      <p class="mt-2 text-xs uppercase tracking-wide text-[#FFC800]">
         {{ getFirstCategoryName(video) }}
       </p>
 
@@ -86,16 +94,24 @@
 <!-- Flèches -->
 <div class="flex justify-center gap-6 mt-4">
     <button
-      class="bg-white/10 hover:bg-white/20 backdrop-blur-md
-             text-white p-3 rounded-full border border-white/10"
+     class="bg-gradient-to-br from-[#F7E7CE]/20 to-[#D4AF37]/40 
+         hover:from-[#F7E7CE]/30 hover:to-[#D4AF37]/60
+         backdrop-blur-md text-white p-3 rounded-full
+         border border-[#D4AF37]/50
+         shadow-[0_0_12px_rgba(212,175,55,0.3)]
+         transition"
       @click="scrollCarousel('left')"
     >
       <ArrowLeftIcon class="w-6 h-6" />
     </button>
 
     <button
-      class="bg-white/10 hover:bg-white/20 backdrop-blur-md
-             text-white p-3 rounded-full border border-white/10"
+      class="bg-gradient-to-br from-[#F7E7CE]/20 to-[#D4AF37]/40 
+         hover:from-[#F7E7CE]/30 hover:to-[#D4AF37]/60
+         backdrop-blur-md text-white p-3 rounded-full
+         border border-[#D4AF37]/50
+         shadow-[0_0_12px_rgba(212,175,55,0.3)]
+         transition"
       @click="scrollCarousel('right')"
     >
     <ArrowRightIcon class="w-6 h-6" />

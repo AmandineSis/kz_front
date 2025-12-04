@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 /* Option : polices custom (en-dessous uniquement) */
 @font-face {
   font-family: "content-font";
@@ -16,3 +17,15 @@
   src: url("/fonts/Orbitron-Medium.ttf") format("truetype");
 }
 
+h2 {
+  font-family: "highlight-font", sans-serif;
+}
+p{
+  font-family: "content-font", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
