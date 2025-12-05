@@ -145,7 +145,7 @@ const onSubmit = async () => {
   error.value = false
 
   try {
-    await $fetch(`${API_BASE}/contact/send`, {
+    await $fetch('http://localhost:1337/api/contact/send', {
       method: 'POST',
       body: {
         name: form.value.name,

@@ -42,7 +42,7 @@
       </div>
 </div>
       <!-- CARROUSEL VIDEOS -->
-      <div class="relative max-w-6xl mx-auto">
+      <div class="relative max-w-full ">
 
   <!-- Container scroll -->
   <div
